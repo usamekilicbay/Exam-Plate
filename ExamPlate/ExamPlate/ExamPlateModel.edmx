@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExamPlateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_Classes">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_Marks">
+          <Key>
+            <PropertyRef Name="MarkID" />
+          </Key>
+          <Property Name="MarkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="MidtermMark" Type="smallint" />
+          <Property Name="FinalMark" Type="smallint" />
+          <Property Name="Cumulative" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="PassedStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="varchar" MaxLength="50" />
+          <Property Name="StudentPhotoURL" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_TBL_Marks_TBL_Classes">
+          <End Role="TBL_Classes" Type="Self.TBL_Classes" Multiplicity="0..1" />
+          <End Role="TBL_Marks" Type="Self.TBL_Marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Classes">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="TBL_Marks">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_Marks_TBL_Students">
+          <End Role="TBL_Students" Type="Self.TBL_Students" Multiplicity="0..1" />
+          <End Role="TBL_Marks" Type="Self.TBL_Marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="TBL_Marks">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamPlateModelStoreContainer">
+          <EntitySet Name="TBL_Classes" EntityType="Self.TBL_Classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Marks" EntityType="Self.TBL_Marks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Students" EntityType="Self.TBL_Students" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_Marks_TBL_Classes" Association="Self.FK_TBL_Marks_TBL_Classes">
+            <End Role="TBL_Classes" EntitySet="TBL_Classes" />
+            <End Role="TBL_Marks" EntitySet="TBL_Marks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_Marks_TBL_Students" Association="Self.FK_TBL_Marks_TBL_Students">
+            <End Role="TBL_Students" EntitySet="TBL_Students" />
+            <End Role="TBL_Marks" EntitySet="TBL_Marks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExamPlateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_Classes">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_Marks" Relationship="Self.FK_TBL_Marks_TBL_Classes" FromRole="TBL_Classes" ToRole="TBL_Marks" />
+        </EntityType>
+        <EntityType Name="TBL_Marks">
+          <Key>
+            <PropertyRef Name="MarkID" />
+          </Key>
+          <Property Name="MarkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="MidtermMark" Type="Int16" />
+          <Property Name="FinalMark" Type="Int16" />
+          <Property Name="Cumulative" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="PassedStatus" Type="Boolean" />
+          <NavigationProperty Name="TBL_Classes" Relationship="Self.FK_TBL_Marks_TBL_Classes" FromRole="TBL_Marks" ToRole="TBL_Classes" />
+          <NavigationProperty Name="TBL_Students" Relationship="Self.FK_TBL_Marks_TBL_Students" FromRole="TBL_Marks" ToRole="TBL_Students" />
+        </EntityType>
+        <EntityType Name="TBL_Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StudentPhotoURL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_Marks" Relationship="Self.FK_TBL_Marks_TBL_Students" FromRole="TBL_Students" ToRole="TBL_Marks" />
+        </EntityType>
+        <Association Name="FK_TBL_Marks_TBL_Classes">
+          <End Role="TBL_Classes" Type="Self.TBL_Classes" Multiplicity="0..1" />
+          <End Role="TBL_Marks" Type="Self.TBL_Marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Classes">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="TBL_Marks">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_Marks_TBL_Students">
+          <End Role="TBL_Students" Type="Self.TBL_Students" Multiplicity="0..1" />
+          <End Role="TBL_Marks" Type="Self.TBL_Marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="TBL_Marks">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamPlateEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_Classes" EntityType="Self.TBL_Classes" />
+          <EntitySet Name="TBL_Marks" EntityType="Self.TBL_Marks" />
+          <EntitySet Name="TBL_Students" EntityType="Self.TBL_Students" />
+          <AssociationSet Name="FK_TBL_Marks_TBL_Classes" Association="Self.FK_TBL_Marks_TBL_Classes">
+            <End Role="TBL_Classes" EntitySet="TBL_Classes" />
+            <End Role="TBL_Marks" EntitySet="TBL_Marks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_Marks_TBL_Students" Association="Self.FK_TBL_Marks_TBL_Students">
+            <End Role="TBL_Students" EntitySet="TBL_Students" />
+            <End Role="TBL_Marks" EntitySet="TBL_Marks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExamPlateModelStoreContainer" CdmEntityContainer="ExamPlateEntities">
+          <EntitySetMapping Name="TBL_Classes">
+            <EntityTypeMapping TypeName="ExamPlateModel.TBL_Classes">
+              <MappingFragment StoreEntitySet="TBL_Classes">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Marks">
+            <EntityTypeMapping TypeName="ExamPlateModel.TBL_Marks">
+              <MappingFragment StoreEntitySet="TBL_Marks">
+                <ScalarProperty Name="MarkID" ColumnName="MarkID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="MidtermMark" ColumnName="MidtermMark" />
+                <ScalarProperty Name="FinalMark" ColumnName="FinalMark" />
+                <ScalarProperty Name="Cumulative" ColumnName="Cumulative" />
+                <ScalarProperty Name="PassedStatus" ColumnName="PassedStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Students">
+            <EntityTypeMapping TypeName="ExamPlateModel.TBL_Students">
+              <MappingFragment StoreEntitySet="TBL_Students">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentPhotoURL" ColumnName="StudentPhotoURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
