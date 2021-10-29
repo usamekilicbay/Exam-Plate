@@ -17,7 +17,7 @@ namespace ExamPlate
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBL_Students()
         {
-            this.TBL_Marks = new HashSet<TBL_Marks>();
+            this.TBL_Grades = new HashSet<TBL_Grades>();
         }
     
         public int StudentID { get; set; }
@@ -25,6 +25,6 @@ namespace ExamPlate
         public string StudentPhotoURL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_Marks> TBL_Marks { get; set; }
+        public virtual ICollection<TBL_Grades> TBL_Grades { get; set; }
     }
 }

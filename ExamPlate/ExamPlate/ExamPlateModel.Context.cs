@@ -12,6 +12,8 @@ namespace ExamPlate
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ExamPlateEntities : DbContext
     {
@@ -26,7 +28,12 @@ namespace ExamPlate
         }
     
         public virtual DbSet<TBL_Classes> TBL_Classes { get; set; }
-        public virtual DbSet<TBL_Marks> TBL_Marks { get; set; }
+        public virtual DbSet<TBL_Grades> TBL_Grades { get; set; }
         public virtual DbSet<TBL_Students> TBL_Students { get; set; }
+    
+        public virtual ObjectResult<GRADE_LIST_Result> GRADE_LIST()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GRADE_LIST_Result>("GRADE_LIST");
+        }
     }
 }

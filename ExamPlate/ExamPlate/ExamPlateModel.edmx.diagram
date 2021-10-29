@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="97d3f1ab415c40ca97ba2c8c58d8843f" Name="Diagram1">
+      <Diagram DiagramId="803034c110a5480fb6f27b145826b5e2" Name="Diagram1">
         <EntityTypeShape EntityType="ExamPlateModel.TBL_Classes" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamPlateModel.TBL_Marks" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamPlateModel.TBL_Grades" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamPlateModel.TBL_Students" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <AssociationConnector Association="ExamPlateModel.FK_TBL_Marks_TBL_Classes" ManuallyRouted="false" />
         <AssociationConnector Association="ExamPlateModel.FK_TBL_Marks_TBL_Students" ManuallyRouted="false" />

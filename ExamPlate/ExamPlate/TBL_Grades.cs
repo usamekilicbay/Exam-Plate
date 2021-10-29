@@ -12,15 +12,15 @@ namespace ExamPlate
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_Marks
+    public partial class TBL_Grades
     {
-        public int MarkID { get; set; }
+        public int GradeID { get; set; }
         public Nullable<int> StudentID { get; set; }
+        public Nullable<short> MidtermGrade { get; set; }
+        public Nullable<short> FinalGrade { get; set; }
         public Nullable<int> ClassID { get; set; }
-        public Nullable<short> MidtermMark { get; set; }
-        public Nullable<short> FinalMark { get; set; }
-        public Nullable<decimal> Cumulative { get; set; }
-        public Nullable<bool> PassedStatus { get; set; }
+        public Nullable<decimal> GPA { get; set; }
+        public Nullable<bool> PassingStatus { get; set; }
     
         public virtual TBL_Classes TBL_Classes { get; set; }
         public virtual TBL_Students TBL_Students { get; set; }
